@@ -1,0 +1,10 @@
+C:\Users\phoen\source\repos\MinecraftTextureBuilder\MinecraftTextureBuilder\bin\Debug\MinecraftTextureBuilder.exe.config
+C:\Users\phoen\source\repos\MinecraftTextureBuilder\MinecraftTextureBuilder\bin\Debug\MinecraftTextureBuilder.exe
+C:\Users\phoen\source\repos\MinecraftTextureBuilder\MinecraftTextureBuilder\bin\Debug\MinecraftTextureBuilder.pdb
+C:\Users\phoen\source\repos\MinecraftTextureBuilder\MinecraftTextureBuilder\obj\Debug\MinecraftTextureBuilder.csproj.CoreCompileInputs.cache
+C:\Users\phoen\source\repos\MinecraftTextureBuilder\MinecraftTextureBuilder\obj\Debug\MinecraftTextureBuilder.exe
+C:\Users\phoen\source\repos\MinecraftTextureBuilder\MinecraftTextureBuilder\obj\Debug\MinecraftTextureBuilder.pdb
+C:\Users\phoen\source\repos\MinecraftTextureBuilder\MinecraftTextureBuilder\obj\Debug\MinecraftTextureBuilder.Form1.resources
+C:\Users\phoen\source\repos\MinecraftTextureBuilder\MinecraftTextureBuilder\obj\Debug\MinecraftTextureBuilder.csproj.GenerateResource.cache
+C:\Users\phoen\source\repos\MinecraftTextureBuilder\MinecraftTextureBuilder\obj\Debug\MinecraftTextureBuilder.csprojAssemblyReference.cache
+C:\Users\phoen\source\repos\MinecraftTextureBuilder\MinecraftTextureBuilder\obj\Debug\MinecraftTextureBuilder.Properties.Resources.resources
