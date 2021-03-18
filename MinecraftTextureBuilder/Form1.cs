@@ -24,7 +24,7 @@ namespace MinecraftTextureBuilder
 
         //Strings
 
-        string CurrentVersion = "1.1";
+        string CurrentVersion = "1.2";
 
         string BaseURL = "http://pckstudio.tk/";
 
