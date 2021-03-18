@@ -48,6 +48,8 @@ namespace MinecraftTextureBuilder
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.TxtFiles = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // textBox1
@@ -246,11 +248,37 @@ namespace MinecraftTextureBuilder
             this.label4.TabIndex = 18;
             this.label4.Text = "1.0";
             // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Checked = true;
+            this.checkBox8.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox8.Location = new System.Drawing.Point(181, 108);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(53, 17);
+            this.checkBox8.TabIndex = 19;
+            this.checkBox8.Text = "Armor";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
+            // 
+            // TxtFiles
+            // 
+            this.TxtFiles.AutoSize = true;
+            this.TxtFiles.Location = new System.Drawing.Point(558, 108);
+            this.TxtFiles.Name = "TxtFiles";
+            this.TxtFiles.Size = new System.Drawing.Size(95, 17);
+            this.TxtFiles.TabIndex = 20;
+            this.TxtFiles.Text = "Create .txt files";
+            this.TxtFiles.UseVisualStyleBackColor = true;
+            this.TxtFiles.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 222);
+            this.Controls.Add(this.TxtFiles);
+            this.Controls.Add(this.checkBox8);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.checkBox7);
             this.Controls.Add(this.checkBox6);
@@ -299,5 +327,7 @@ namespace MinecraftTextureBuilder
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.CheckBox TxtFiles;
     }
 }

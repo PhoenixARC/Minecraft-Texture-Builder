@@ -99,6 +99,7 @@ namespace TextureToolUpdater
 
 		private void FormMain_Load(object sender, EventArgs e)
 		{
+			Console.WriteLine(new WebClient().DownloadString(new Uri("http://www.pckstudio.tk/studio/Texture/update.xml")));
 			downloadUpdate();
 		}
 
@@ -170,5 +171,10 @@ namespace TextureToolUpdater
 				}
 				this.updateTool();
 		}
-	}
+
+        private void progressBarUpdate_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

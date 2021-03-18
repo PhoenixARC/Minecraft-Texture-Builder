@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.IO;
+using System.IO.Compression;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,7 +24,7 @@ namespace MinecraftTextureBuilder
 
         //Strings
 
-        string CurrentVersion = "1.0";
+        string CurrentVersion = "1.1";
 
         string BaseURL = "http://pckstudio.tk/";
 
@@ -67,11 +68,11 @@ namespace MinecraftTextureBuilder
             {"rail","red_wool", "pink_wool","repeater","spruce_leaves","spruce_leaves","conduit","turtle_egg","melon_side","melon_top","cauldron_top","cauldron_inner","wet_sponge","mushroom_stem","mushroom_block_inside","vines" },
             {"lapis_block","green_wool","lime_wool","repeater_on","glass_pane_top","debug","debug","turtle_egg_slightly_cracked","turtle_egg_very_cracked","jungle_log","cauldron_side","cauldron_bottom","brewing_stand_base","brewing_stand","end_portal_frame_top","end_portal_frame_side" },
             {"lapis_ore","brown_wool","yellow_wool","powered_rail","redstone_dust_dot","redstone_dust_line0","enchanting_table_top","dragon_egg","cocoa_stage2","cocoa_stage1","cocoa_stage0","emerald_ore","tripwire_hook","tripwire","end_portal_frame_eye","end_stone" },
-            {"sandstone_top","blue_wool","light_blue_wool","powered_rail_on","debug","debug","enchanting_table_side","enchanting_table_bottom","ring_blue","item_frame","flower_pot","comparator","comparator_on","activator_rail","activator_rail","nether_quartz_ore" },
+            {"sandstone_top","blue_wool","light_blue_wool","powered_rail_on","debug","debug","enchanting_table_side","enchanting_table_bottom","glide_blue","item_frame","flower_pot","comparator","comparator_on","activator_rail","activator_rail","nether_quartz_ore" },
             {"sandstone","purple_wool","magenta_wool","detector_rail","jungle_leaves","black_concrete","spruce_planks","jungle_planks","carrots_stage0","carrots_stage1","carrots_stage2","carrots_stage3","slime_block","debug","debug","debug" },
             {"sandstone_bottom","cyan_wool","orange_wool","redstone_lamp","redstone_lamp_on","chiseled_stone_bricks","birch_planks","anvil","chipped_anvil_top","chiseled_quartz_block_top","quartz_pillar_top","quartz_block_side","debug","detector_rail_on","debug","debug" },
             {"nether_bricks","light_gray_wool","nether_wart_stage0","nether_wart_stage1","nether_wart_stage2","chiseled_sandstone","cut_sandstone","anvil_top","damaged_anvil_top","chiseled_quartz_block","quartz_pillar","quartz_block_top","debug","debug","debug","debug" },
-            {"debug","debug","debug","debug","debug","debug","debug","debug","debug","debug","hay_block_side","quartz_block_bottom","debug","hay_block_top","debug","debug" },
+            {"destroy_stage_0","destroy_stage_1","destroy_stage_2","destroy_stage_3","destroy_stage_4","destroy_stage_5","destroy_stage_6","destroy_stage_7","destroy_stage_8","destroy_stage_9","hay_block_side","quartz_block_bottom","debug","hay_block_top","debug","debug" },
             {"coal_block","terracotta","note_block","andesite","polished_andesite","diorite","polished_diorite","granite","polished_granite","potatoes_stage0","potatoes_stage1","potatoes_stage2","potatoes_stage3","spruce_log_top","jungle_log_top","birch_log_top" },
             {"black_terracotta","blue_terracotta","brown_terracotta","cyan_terracotta","gray_terracotta","green_terracotta","light_blue_terracotta","lime_terracotta","magenta_terracotta","orange_terracotta","pink_terracotta","purple_terracotta","red_terracotta","light_gray_terracotta","white_terracotta","yellow_terracotta" },
             {"black_stained_glass","blue_stained_glass","brown_stained_glass","cyan_stained_glass","gray_stained_glass","green_stained_glass","light_blue_stained_glass","lime_stained_glass","magenta_stained_glass","orange_stained_glass","pink_stained_glass","purple_stained_glass","red_stained_glass","light_gray_stained_glass","white_stained_glass","yellow_stained_glass" },
@@ -82,7 +83,7 @@ namespace MinecraftTextureBuilder
             {"acacia_door_top","birch_door_top","dark_oak_door_top","jungle_door_top","spruce_door_top","chorus_flower","chorus_flower_dead","chorus_plant","end_stone_bricks","grass_path_side","grass_path_top","debug","packed_ice","debug","daylight_detector_inverted_top","iron_trapdoor" },
             {"acacia_door_bottom","birch_door_bottom","dark_oak_door_bottom","jungle_door_bottom","spruce_door_bottom","purpur_block","purpur_pillar","purpur_pillar_top","end_rod","debug","nether_wart_block","red_nether_bricks","frosted_ice_0","frosted_ice_1","frosted_ice_2","frosted_ice_3" },
             {"beetroots_stage0","beetroots_stage1","beetroots_stage2","beetroots_stage3","debug","debug","debug","debug","debug","debug","debug","debug","debug","debug","debug","debug" },
-            {"bone_block_side","bone_block_top","melon_stem","attached_melon_stem","observer_front","observer_side","observer_back","observer_back_on","observer_top","gold_ring","green_ring","structure_block","structure_block_corner","structure_block_data","structure_block_load","structure_block_save" },
+            {"bone_block_side","bone_block_top","melon_stem","attached_melon_stem","observer_front","observer_side","observer_back","observer_back_on","observer_top","glide_yellow","glide_green","structure_block","structure_block_corner","structure_block_data","structure_block_load","structure_block_save" },
             {"black_concrete","blue_concrete","brown_concrete","cyan_concrete","gray_concrete","green_concrete","light_blue_concrete","lime_concrete","magenta_concrete","orange_concrete","pink_concrete","purple_concrete","red_concrete","light_gray_concrete","white_concrete","yellow_concrete" },
             {"black_concrete_powder","blue_concrete_powder","brown_concrete_powder","cyan_concrete_powder","gray_concrete_powder","green_concrete_powder","light_blue_concrete_powder","lime_concrete_powder","magenta_concrete_powder","orange_concrete_powder","pink_concrete_powder","purple_concrete_powder","red_concrete_powder","light_gray_concrete_powder","white_concrete_powder","yellow_concrete_powder" },
             {"black_glazed_terracotta","blue_glazed_terracotta","brown_glazed_terracotta","cyan_glazed_terracotta","gray_glazed_terracotta","green_glazed_terracotta","light_blue_glazed_terracotta","lime_glazed_terracotta","magenta_glazed_terracotta","orange_glazed_terracotta","pink_glazed_terracotta","purple_glazed_terracotta","red_glazed_terracotta","light_gray_glazed_terracotta","white_glazed_terracotta","yellow_glazed_terracotta" },
@@ -231,7 +232,24 @@ namespace MinecraftTextureBuilder
              {"back","1","12"},
              {"back","2","12"},
              {"back","3","12"}
-        }; 
+        };
+
+        string[,] armour = 
+            {
+                { "\\armor\\chainmail_layer_1", "\\chain_1"},
+                { "\\armor\\chainmail_layer_2", "\\chain_2"},
+                { "\\armor\\leather_layer_1", "\\cloth_1"},
+                { "\\armor\\leather_layer_1_overlay", "\\cloth_1_boverlay"},
+                { "\\armor\\leather_layer_2", "\\cloth_2"},
+                { "\\armor\\leather_layer_2_overlay", "\\cloth_2_b"},
+                { "\\armor\\diamond_layer_1", "\\diamond_1"},
+                { "\\armor\\diamond_layer_2", "\\diamond_2"},
+                { "\\armor\\gold_layer_1", "\\gold_1"},
+                { "\\armor\\gold_layer_2", "\\gold_2"},
+                { "\\armor\\iron_layer_1", "\\iron_1"},
+                { "\\armor\\iron_layer_2", "\\iron_2"},
+                { "\\armor\\turtle_layer_1", "\\turtle_1"}
+            };
 
 
         //options
@@ -248,6 +266,8 @@ namespace MinecraftTextureBuilder
         bool rain = true;
 
         bool paintings = true;
+
+        bool armor = true;
 
         #endregion
 
@@ -299,6 +319,10 @@ namespace MinecraftTextureBuilder
                 moverain(workingDir + "\\environment");
             if (paintings)
                 MakePaintingSheet(workingDir + "\\painting");
+            if (armor)
+                MoveArmor(workingDir + "\\models");
+            Console.WriteLine("Process Complete!");
+            MessageBox.Show("Process Complete!");
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -315,6 +339,7 @@ namespace MinecraftTextureBuilder
 
         #region checkboxes
 
+        //checks terrain bool
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if(checkBox1.Checked)
@@ -327,6 +352,7 @@ namespace MinecraftTextureBuilder
             }
         }
 
+        //checks item bool
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox2.Checked)
@@ -339,6 +365,7 @@ namespace MinecraftTextureBuilder
             }
         }
 
+        //checks fui bool
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox3.Checked)
@@ -355,6 +382,7 @@ namespace MinecraftTextureBuilder
             }
         }
 
+        //checks mobs bool
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox4.Checked)
@@ -363,6 +391,7 @@ namespace MinecraftTextureBuilder
                 entities = false;
         }
 
+        //checks sun/moon bool
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox5.Checked)
@@ -371,6 +400,7 @@ namespace MinecraftTextureBuilder
                 sun = false;
         }
 
+        //checks weather bool
         private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox6.Checked)
@@ -379,12 +409,22 @@ namespace MinecraftTextureBuilder
                 rain = false;
         }
 
+        //checks painting bool
         private void checkBox7_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox7.Checked)
                 paintings = true;
             else
                 paintings = false;
+        }
+
+        //checks armor bool
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox8.Checked)
+                armor = true;
+            else
+                armor = false;
         }
 
         #endregion
@@ -405,9 +445,29 @@ namespace MinecraftTextureBuilder
             {
                 try
                 {
-                    g.DrawImageUnscaled(Image.FromFile(input + "\\" + BlockSheetArray[h, w] + ".png"), new Point(w * Bitmap.FromFile(files[0]).Width, h * Bitmap.FromFile(files[0]).Width));
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("DRAW - " + BlockSheetArray[h, w] + " - AT - BlockSheetArray[" + h.ToString() + ", " + w.ToString() + "]");
+                    Bitmap bmp = new Bitmap(Bitmap.FromFile(files[0]));
+                    try
+                    {
+                        Image img = Image.FromFile(input + "\\" + BlockSheetArray[h, w] + ".png");
+                        Image img2 = (Image)(new Bitmap(img, new Size(bmp.Width, bmp.Height)));
+
+
+                        //g.DrawImage(Image.FromFile(input + "\\" + BlockSheetArray[h, w] + ".png"), new Point(w * bmp.Width, h * bmp.Width));
+                        g.DrawImage(img2, new Point(w * bmp.Width, h * bmp.Width));
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("DRAW - " + BlockSheetArray[h, w] + " - AT - BlockSheetArray[" + h.ToString() + ", " + w.ToString() + "]");
+                    }
+                    catch
+                    {
+                        Image img = Image.FromFile(Environment.CurrentDirectory + "\\data\\block" + "\\" + BlockSheetArray[h, w] + ".png");
+                        Image img2 = (Image)(new Bitmap(img, new Size(bmp.Width, bmp.Height)));
+
+
+                        //g.DrawImage(Image.FromFile(input + "\\" + BlockSheetArray[h, w] + ".png"), new Point(w * bmp.Width, h * bmp.Width));
+                        g.DrawImage(img2, new Point(w * bmp.Width, h * bmp.Width));
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("DRAW - " + BlockSheetArray[h, w] + " - AT - BlockSheetArray[" + h.ToString() + ", " + w.ToString() + "]");
+                    }
                 }
                 catch (Exception ec)
                 { 
@@ -427,6 +487,8 @@ namespace MinecraftTextureBuilder
             }
             g.Dispose();
             sheet.Save(textBox2.Text + "\\res\\terrain.png", System.Drawing.Imaging.ImageFormat.Png);
+            if (TxtFiles.Checked)
+                File.Create(textBox2.Text + "\\res\\terrain.png.txt");
             makemipmap();
             return sheet;
         }
@@ -440,6 +502,13 @@ namespace MinecraftTextureBuilder
 
             mm1.Save(textBox2.Text + "\\res\\terrainMipMapLevel2.png", System.Drawing.Imaging.ImageFormat.Png);
             mm2.Save(textBox2.Text + "\\res\\terrainMipMapLevel3.png", System.Drawing.Imaging.ImageFormat.Png);
+
+
+            if (TxtFiles.Checked)
+            {
+                File.Create(textBox2.Text + "\\res\\terrainMipMapLevel2.png.txt");
+                File.Create(textBox2.Text + "\\res\\terrainMipMapLevel3.png.txt");
+            }
         }
 
         public Bitmap ResizeBitmap(Bitmap bmp, int width, int height)
@@ -469,9 +538,29 @@ namespace MinecraftTextureBuilder
                 {
                     try
                     {
-                        g.DrawImageUnscaled(Image.FromFile(input + "\\" + ItemSheetArray[h, w] + ".png"), new Point(w * Bitmap.FromFile(files[0]).Width, h * Bitmap.FromFile(files[0]).Width));
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("DRAW - " + ItemSheetArray[h, w] + " - AT - ItemSheetArray[" + h.ToString() + ", " + w.ToString() + "]");
+                        Bitmap bmp = new Bitmap(Bitmap.FromFile(files[0]));
+                        try
+                        {
+                            Image img = Image.FromFile(input + "\\" + ItemSheetArray[h, w] + ".png");
+                            Image img2 = (Image)(new Bitmap(img, new Size(bmp.Width, bmp.Height)));
+
+
+                            //g.DrawImageUnscaled(Image.FromFile(input + "\\" + ItemSheetArray[h, w] + ".png"), new Point(w * Bitmap.FromFile(files[0]).Width, h * Bitmap.FromFile(files[0]).Width));
+                            g.DrawImage(img2, new Point(w * bmp.Width, h * bmp.Width));
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("DRAW - " + ItemSheetArray[h, w] + " - AT - ItemSheetArray[" + h.ToString() + ", " + w.ToString() + "]");
+                        }
+                        catch
+                        {
+                            Image img = Image.FromFile(Environment.CurrentDirectory + "\\data\\item" + "\\" + ItemSheetArray[h, w] + ".png");
+                            Image img2 = (Image)(new Bitmap(img, new Size(bmp.Width, bmp.Height)));
+
+
+                            //g.DrawImageUnscaled(Image.FromFile(input + "\\" + ItemSheetArray[h, w] + ".png"), new Point(w * Bitmap.FromFile(files[0]).Width, h * Bitmap.FromFile(files[0]).Width));
+                            g.DrawImage(img2, new Point(w * bmp.Width, h * bmp.Width));
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("DRAW - " + ItemSheetArray[h, w] + " - AT - ItemSheetArray[" + h.ToString() + ", " + w.ToString() + "]");
+                        }
                     }
                     catch (Exception ec)
                     {
@@ -491,6 +580,8 @@ namespace MinecraftTextureBuilder
                 }
                 g.Dispose();
                 sheet.Save(textBox2.Text + "\\res\\items.png", System.Drawing.Imaging.ImageFormat.Png);
+                if (TxtFiles.Checked)
+                    File.Create(textBox2.Text + "\\res\\items.png.txt");
                 return sheet;
             }
             catch
@@ -512,6 +603,8 @@ namespace MinecraftTextureBuilder
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(textBox2.Text + "\\res\\mob" + mobs[num, 1] + ".png"));
                     File.Copy(input + mobs[num, 0]+".png", textBox2.Text + "\\res\\mob" + mobs[num, 1]+".png", true);
+                    if (TxtFiles.Checked)
+                        File.Create(textBox2.Text + "\\res\\mob" + mobs[num, 1] + ".png.txt");
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("COPIED TEXTURE - AT - mobs["+num.ToString()+","+"0]");
                 }
@@ -534,6 +627,13 @@ namespace MinecraftTextureBuilder
             {
             File.Copy(input + "\\sun.png", textBox2.Text +"\\res\\terrain\\sun.png", true);
             File.Copy(input + "\\moon_phases.png", textBox2.Text + "\\res\\terrain\\moon_phases.png", true);
+
+
+                if (TxtFiles.Checked)
+                {
+                    File.Create(textBox2.Text + "\\res\\terrain\\sun.png.txt");
+                    File.Create(textBox2.Text + "\\res\\terrain\\moon_phases.png.txt");
+                }
             }
             catch (Exception ec)
             {
@@ -552,6 +652,14 @@ namespace MinecraftTextureBuilder
                 File.Copy(input + "\\rain.png", textBox2.Text + "\\res\\environment\\rain.png", true);
                 File.Copy(input + "\\snow.png", textBox2.Text + "\\res\\environment\\snow.png", true);
                 File.Copy(input + "\\clouds.png", textBox2.Text + "\\res\\environment\\clouds.png", true);
+
+
+                if (TxtFiles.Checked)
+                {
+                    File.Create(textBox2.Text + "\\res\\environment\\rain.png.txt");
+                    File.Create(textBox2.Text + "\\res\\environment\\snow.png.txt");
+                    File.Create(textBox2.Text + "\\res\\environment\\clouds.png.txt");
+                }
             }
             catch (Exception ec)
             {
@@ -572,12 +680,24 @@ namespace MinecraftTextureBuilder
                 Bitmap sheet = new Bitmap(Bitmap.FromFile(files[0]).Width * 16, Bitmap.FromFile(files[0]).Height * 16);
                 Graphics g = Graphics.FromImage(sheet);
                 g.Clear(Color.Transparent);
+                int w = Bitmap.FromFile(files[0]).Width;
+                int h = Bitmap.FromFile(files[0]).Height;
                 int i = 0;
                 while (i < 45)
                 {
                     try
                     {
-                        g.DrawImageUnscaled(Image.FromFile(input + "\\" + painting[i, 0] + ".png"), new Point(int.Parse(painting[i, 2]) * Bitmap.FromFile(files[0]).Width, int.Parse(painting[i, 1]) * Bitmap.FromFile(files[0]).Width));
+
+
+
+                        Bitmap bmp = new Bitmap(Bitmap.FromFile(input + "\\" + painting[i, 0] + ".png"));
+                        Point location = new Point((int.Parse(painting[i, 2])) * w, (int.Parse(painting[i, 1])) * h);
+                        Image img = Image.FromFile(input + "\\" + painting[i, 0] + ".png");
+                        Image img2 = (Image)(new Bitmap(img, new Size(bmp.Width, bmp.Height)));
+
+
+                        //g.DrawImageUnscaled(Image.FromFile(input + "\\" + painting[i, 0] + ".png"), new Point(int.Parse(painting[i, 2]) * Bitmap.FromFile(files[0]).Width, int.Parse(painting[i, 1]) * Bitmap.FromFile(files[0]).Width));
+                        g.DrawImage(img2, location);
 
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("DRAW - " + painting[i, 0] + " - AT - Painting[" + i.ToString() + ", 0]");
@@ -597,6 +717,8 @@ namespace MinecraftTextureBuilder
                 {
                     g.Dispose();
                     sheet.Save(textBox2.Text + "\\res\\art\\kz.png", System.Drawing.Imaging.ImageFormat.Png);
+                    if (TxtFiles.Checked)
+                        File.Create(textBox2.Text + "\\res\\art\\kz.png.txt");
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("SAVE - " + textBox2.Text + "\\res\\art\\kz.png");
                 }
@@ -616,6 +738,34 @@ namespace MinecraftTextureBuilder
                 
         }
 
+        //armor layers
+        public void MoveArmor(string input)
+        {
+            Directory.CreateDirectory(textBox2.Text + "\\res\\armor");
+            int num = 0;
+            while (num <= 14)
+            {
+                try
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(textBox2.Text + "\\res\\armor" + armour[num, 1] + ".png"));
+                    File.Copy(input + armour[num, 0] + ".png", textBox2.Text + "\\res\\armor" + armour[num, 1] + ".png", true);
+                    if(TxtFiles.Checked)
+                    File.Create(textBox2.Text + "\\res\\armor" + armour[num, 1] + ".png.txt");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("COPIED TEXTURE - AT - armor[" + num.ToString() + "," + "0]");
+                }
+                catch (Exception ec)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("ERROR COPYING TEXTURE - AT - armor[" + num.ToString() + "," + "0]");
+                    Console.WriteLine(ec.Message);
+                }
+                num++;
+            }
+
+        }
+
+
         #endregion
 
         #region startup actions
@@ -631,6 +781,12 @@ namespace MinecraftTextureBuilder
             Directory.CreateDirectory(Environment.CurrentDirectory + "\\InputTextures");
             textBox2.Text = Environment.CurrentDirectory + "\\OutputTextures";
             textBox1.Text = Environment.CurrentDirectory + "\\InputTextures";
+            if(!Directory.Exists(Environment.CurrentDirectory + "\\data"))
+            {
+                Console.WriteLine("==Extracting backup texture data...");
+                ZipFile.ExtractToDirectory(Environment.CurrentDirectory + "\\TextureData.zip", Environment.CurrentDirectory);
+                Console.WriteLine("==Extracted backup texture data!");
+            }
 
             //Update
             WebClient wc = new WebClient();
@@ -769,5 +925,6 @@ namespace MinecraftTextureBuilder
         }
 
         #endregion
+
     }
 }
